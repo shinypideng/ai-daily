@@ -24,6 +24,19 @@ SOURCE_LABELS = {
     "Reddit": "Reddit",
     "ArXiv": "ArXiv",
     "Product Hunt": "PH",
+    "YouTube": "YT",
+    "RSSHub": "RH",
+}
+
+
+SOURCE_ICONS = {
+    "Hacker News": "🧡",
+    "The Verge": "🔴",
+    "Reddit": "🟠",
+    "ArXiv": "📄",
+    "Product Hunt": "🚀",
+    "YouTube": "▶️",
+    "RSSHub": "📡",
 }
 
 
@@ -43,6 +56,7 @@ def main():
     # 收集来源
     news_sources = sorted(set(a["source"] for a in news))
     tool_sources = sorted(set(a["source"] for a in tool))
+    all_sources = sorted(set(news_sources + tool_sources))
 
     # 3. 渲染
     print(f"\n🎨 渲染 HTML...")
@@ -55,6 +69,8 @@ def main():
         news=news,
         tool=tool,
         sources={"news": news_sources, "tool": tool_sources},
+        all_sources=all_sources,
+        source_icons=SOURCE_ICONS,
     )
 
     # 4. 输出

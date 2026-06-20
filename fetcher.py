@@ -9,17 +9,23 @@ from typing import Optional
 
 import feedparser
 import requests
+import urllib3
+
+# RSSHub 可能有 SSL 证书问题
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
 
 # ── 配置 ──────────────────────────────────────────
-REQUEST_TIMEOUT = 15  # 每个源最多等 15 秒
-MAX_PER_SOURCE = 10   # 每个源最多取多少条
-MAX_TOTAL = 25        # 最终输出上限
+REQUEST_TIMEOUT = 15      # 普通源最多等 15 秒
+RSSHUB_TIMEOUT = 25       # RSSHub 可能慢
+MAX_PER_SOURCE = 8        # 每个源最多取多少条
+MAX_TOTAL = 50            # 最终每个分类输出上限（源多了）
 
 # ── 源定义 ────────────────────────────────────────
 SOURCES = [
+    # ── 行业动态 ──
     {
         "name": "Hacker News",
         "type": "api",
@@ -42,13 +48,6 @@ SOURCES = [
         "extractor": "reddit",
     },
     {
-        "name": "Reddit AI",
-        "type": "rss",
-        "url": "https://www.reddit.com/r/artificial/.rss",
-        "category": "tool",
-        "extractor": "reddit",
-    },
-    {
         "name": "The Verge AI",
         "type": "rss",
         "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
@@ -62,12 +61,71 @@ SOURCES = [
         "category": "news",
         "extractor": "arxiv",
     },
+    # ── YouTube AI 频道 ──
+    {
+        "name": "YouTube · Two Minute Papers",
+        "type": "rss",
+        "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg",
+        "category": "news",
+        "extractor": "youtube",
+    },
+    {
+        "name": "YouTube · Fireship",
+        "type": "rss",
+        "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCsBjURrPoezykLs9EqgamOA",
+        "category": "news",
+        "extractor": "youtube",
+    },
+    {
+        "name": "YouTube · Lex Fridman",
+        "type": "rss",
+        "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCSHZKyawb77ixDdsGog4iWA",
+        "category": "news",
+        "extractor": "youtube",
+    },
+    {
+        "name": "YouTube · Yannic Kilcher",
+        "type": "rss",
+        "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCZHmQk67mSJgfCCTn7xBfew",
+        "category": "news",
+        "extractor": "youtube",
+    },
+    {
+        "name": "YouTube · TensorFlow",
+        "type": "rss",
+        "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UC0rqucBdTuFTjJiefW5t-IQ",
+        "category": "news",
+        "extractor": "youtube",
+    },
+    # ── C端工具 ──
+    {
+        "name": "Reddit AI",
+        "type": "rss",
+        "url": "https://www.reddit.com/r/artificial/.rss",
+        "category": "tool",
+        "extractor": "reddit",
+    },
     {
         "name": "Product Hunt",
         "type": "rss",
         "url": "https://www.producthunt.com/feed?category=ai",
         "category": "tool",
         "extractor": "producthunt",
+    },
+    # ── 中文平台（best-effort，可能超时）──
+    {
+        "name": "小红书 · AI",
+        "type": "rsshub",
+        "url": "https://rsshub.app/xiaohongshu/search/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD",
+        "category": "tool",
+        "extractor": "rsshub",
+    },
+    {
+        "name": "抖音 · AI",
+        "type": "rsshub",
+        "url": "https://rsshub.app/douyin/search/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD",
+        "category": "tool",
+        "extractor": "rsshub",
     },
 ]
 
@@ -154,6 +212,38 @@ def extract_producthunt(entry: dict) -> Optional[dict]:
     }
 
 
+def extract_youtube(entry: dict) -> Optional[dict]:
+    """YouTube 频道 RSS"""
+    title = (entry.get("title") or "").strip()
+    url = entry.get("link", "")
+    if not title or not url:
+        return None
+    # YouTube RSS 的 description 在 media_description 或 summary 中
+    desc = entry.get("media_description", "") or entry.get("summary", "")
+    return {
+        "title": f"📺 {title}",
+        "url": url,
+        "summary": _clean_html(desc)[:200],
+        "date": _parse_date(entry.get("published") or entry.get("updated")),
+        "source": "YouTube",
+    }
+
+
+def extract_rsshub(entry: dict) -> Optional[dict]:
+    """RSSHub 通用提取（小红书/抖音等）"""
+    title = (entry.get("title") or "").strip()
+    url = entry.get("link", "")
+    if not title or not url:
+        return None
+    return {
+        "title": title,
+        "url": url,
+        "summary": _clean_html(entry.get("description", ""))[:200],
+        "date": _parse_date(entry.get("pubDate") or entry.get("published")),
+        "source": "RSSHub",
+    }
+
+
 # ── 工具函数 ──────────────────────────────────────
 
 def _parse_date(date_str: Optional[str]) -> str:
@@ -225,6 +315,21 @@ def _fetch_source(src: dict) -> list[dict]:
         feed = feedparser.parse(src["url"])
         if feed.bozo and not feed.entries:
             raise Exception(f"RSS 解析失败: {feed.bozo_exception}")
+        articles = []
+        extractor = globals()[f"extract_{src['extractor']}"]
+        for entry in feed.entries[:MAX_PER_SOURCE]:
+            a = extractor(entry)
+            if a:
+                articles.append(a)
+        return articles
+
+    elif src["type"] == "rsshub":
+        # RSSHub 可能有 SSL 问题，用 requests 先抓再解析
+        resp = requests.get(src["url"], headers=headers, timeout=RSSHUB_TIMEOUT, verify=False)
+        resp.raise_for_status()
+        feed = feedparser.parse(resp.content)
+        if feed.bozo and not feed.entries:
+            raise Exception(f"RSSHub 解析失败: {feed.bozo_exception}")
         articles = []
         extractor = globals()[f"extract_{src['extractor']}"]
         for entry in feed.entries[:MAX_PER_SOURCE]:
