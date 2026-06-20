@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 每日速递 — 2026-06-20</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans SC", sans-serif;
+    background: #f5f5f7;
+    color: #1d1d1f;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 720px; margin: 0 auto; padding: 24px 16px 48px; }
+
+  /* Header */
+  header {
+    text-align: center;
+    padding: 28px 0 18px;
+  }
+  header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #1d1d1f;
+  }
+  header .date {
+    font-size: 14px;
+    color: #86868b;
+    margin-top: 6px;
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 0;
+    background: #e8e8ed;
+    border-radius: 10px;
+    padding: 4px;
+    margin-bottom: 24px;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #6e6e73;
+    transition: all .2s;
+    border: none;
+    background: transparent;
+  }
+  .tab.active {
+    background: #fff;
+    color: #1d1d1f;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+  }
+
+  /* Panel */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Stats bar */
+  .stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 13px;
+    color: #86868b;
+  }
+  .stats strong { color: #1d1d1f; }
+
+  /* Article cards */
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    transition: box-shadow .2s;
+    border: 1px solid #f0f0f0;
+  }
+  .card:hover { box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+  .card .title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+  .card .title a {
+    color: #1d1d1f;
+    text-decoration: none;
+  }
+  .card .title a:hover { color: #0071e3; }
+  .card .meta {
+    font-size: 12px;
+    color: #86868b;
+    margin-bottom: 6px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .card .meta .source-tag {
+    display: inline-block;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .source-HN { background: #ff660010; color: #ff6600; }
+  .source-Verge { background: #ff3b3010; color: #ff3b30; }
+  .source-Reddit { background: #ff450010; color: #ff4500; }
+  .source-ArXiv { background: #b31b1b10; color: #b31b1b; }
+  .source-PH { background: #da552f10; color: #da552f; }
+  .card .summary {
+    font-size: 13px;
+    color: #515154;
+    line-height: 1.5;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    margin-top: 32px;
+    padding: 20px 0;
+    font-size: 12px;
+    color: #aeaeb2;
+    border-top: 1px solid #e8e8ed;
+  }
+  footer a { color: #0071e3; text-decoration: none; }
+
+  /* Mobile */
+  @media (max-width: 500px) {
+    .container { padding: 12px; }
+    header h1 { font-size: 24px; }
+    .card { padding: 14px 16px; }
+    .card .title { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🤖 AI 每日速递</h1>
+  <div class="date">2026-06-20</div>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('news')">🔥 行业动态</button>
+  <button class="tab" onclick="switchTab('tool')">🛠️ C端工具</button>
+</div>
+
+
+<div class="panel active" id="panel-news">
+  <div class="stats">
+    <span>共 <strong>25</strong> 条</span>
+    <span>来源：ArXiv / Hacker News / The Verge</span>
+  </div>
+
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://apnews.com/article/power-electricity-ai-plants-data-centers-grid-506e3d206871111f15c3c62fc5368be5" target="_blank" rel="noopener">Federal regulators order grid operators speed power2energy-hungry AI datacenters</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-HN">Hacker News</span>
+    </div>
+    
+    <div class="summary">💬 1 分 · 0 评论</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://gcontext.ai" target="_blank" rel="noopener">Show HN: A Context Brain for You (and Your AI Agent)</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-HN">Hacker News</span>
+    </div>
+    
+    <div class="summary">💬 1 分 · 0 评论</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://autonomy-landing-page.vercel.app/" target="_blank" rel="noopener">Show HN: Autonomy – Self-Harness/Self-Directed AI Agent Core Under Development</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-HN">Hacker News</span>
+    </div>
+    
+    <div class="summary">💬 1 分 · 0 评论</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://github.com/Wavesonics/C2PAVerify" target="_blank" rel="noopener">I created an open source app to check if a photo is from an AI or a Camera</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-HN">Hacker News</span>
+    </div>
+    
+    <div class="summary">💬 2 分 · 1 评论</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://speakora.io/" target="_blank" rel="noopener">Show HN: AI Voice Generator for Creators</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-HN">Hacker News</span>
+    </div>
+    
+    <div class="summary">💬 2 分 · 0 评论</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.instagram.com/reel/DZy5nOKN7Pz/" target="_blank" rel="noopener">I made SHORT SQUEEZE, a finance movie trailer created with AI</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-HN">Hacker News</span>
+    </div>
+    
+    <div class="summary">💬 2 分 · 0 评论</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://blog.joemag.dev/2025/10/the-new-calculus-of-ai-based..." target="_blank" rel="noopener">The New Calculus of AI-Based Coding</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-HN">Hacker News</span>
+    </div>
+    
+    <div class="summary">💬 3 分 · 1 评论</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/elon-musk-says-that-china-will-have-a-fable-5-class-ai-model-probably-q1-next-year-ceo-of-chinese-anthropic-rival-says-it-wont-take-that-long" target="_blank" rel="noopener">China will have a Fable 5-class AI model before next year</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-HN">Hacker News</span>
+    </div>
+    
+    <div class="summary">💬 8 分 · 1 评论</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://dri.es/ai-and-the-great-cms-unbundling" target="_blank" rel="noopener">AI and the Great CMS Unbundling</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-HN">Hacker News</span>
+    </div>
+    
+    <div class="summary">💬 4 分 · 0 评论</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://blog.curiousquail.com/spirit-crossings-ai-problem/" target="_blank" rel="noopener">Spirit Crossing's AI Problem</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-HN">Hacker News</span>
+    </div>
+    
+    <div class="summary">💬 1 分 · 0 评论</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.theverge.com/ai-artificial-intelligence/952906/sam-altman-film-artificial-openai-amazon-mgm-dropped" target="_blank" rel="noopener">The film about Sam Altman has been dropped by Amazon MGM</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-Verge">The Verge</span>
+    </div>
+    
+    <div class="summary">Luca Guadagnino's film about OpenAI CEO Sam Altman, Artificial, has reportedly been dropped by Amazon MGM. The film, which stars Andrew Garfield and covers the rollercoaster five days in 2023 spanning</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.theverge.com/ai-artificial-intelligence/952837/barret-zoph-openai-thinking-machines-lab" target="_blank" rel="noopener">Barret Zoph is out at OpenAI again after just five months</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-Verge">The Verge</span>
+    </div>
+    
+    <div class="summary">Five months after returning to OpenAI, Barret Zoph - the company's head of enterprise AI sales - has departed, The Verge has learned. Zoph returned to OpenAI in mid-January after a stint as co-founder</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.theverge.com/ai-artificial-intelligence/952180/amazon-seattle-data-center-moratorium-aecj-disciplinary-action" target="_blank" rel="noopener">Amazon employees say they’re facing termination for backing data center limits</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-Verge">The Verge</span>
+    </div>
+    
+    <div class="summary">When three Amazon software engineers testified earlier this month at Seattle City Council hearings about data centers, they started their testimony by citing a city law barring employment discriminati</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.theverge.com/podcast/951542/anthropic-claude-fable-5-mythos-ban-pentagon-ai-regulation-trump" target="_blank" rel="noopener">Who decides when AI is too dangerous?</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-Verge">The Verge</span>
+    </div>
+    
+    <div class="summary">On today’s episode of Decoder, my guest is Hayden Field, senior AI reporter for The Verge. Often when Hayden comes on the show, it’s because something has gone wrong in the world of AI. Last weekend, </div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.theverge.com/tech/952099/adobe-ai-assistants-photoshop-premiere-illustrator-beta-launch" target="_blank" rel="noopener">Photoshop and Premiere now have AI assistants</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-Verge">The Verge</span>
+    </div>
+    
+    <div class="summary">Adobe's plan to stick AI assistants into all of its Creative Cloud suite is now fully underway, with new chatbots now rolling out to its biggest editing and design apps. As part of a public beta launc</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.theverge.com/tech/952104/adobe-firefly-ai-agent-elements-projects-update" target="_blank" rel="noopener">Adobe’s redesigned AI studio remembers what your creations look like</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-Verge">The Verge</span>
+    </div>
+    
+    <div class="summary">Adobe is introducing some new capabilities for its Firefly AI assistant, alongside a "reimagined" AI studio that lets you edit and generate new designs from a single interface. The new Firefly experie</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.theverge.com/ai-artificial-intelligence/952011/midjourney-medical-ai-ultrasound-scan" target="_blank" rel="noopener">Midjourney goes from generating cat images to full-body ultrasound scans</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-Verge">The Verge</span>
+    </div>
+    
+    <div class="summary">Midjourney CEO David Holz just showed off the company's first hardware product and plans to build a San Francisco spa, which he admitted is a bit different from the "cat pictures" produced by its AI i</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.theverge.com/ai-artificial-intelligence/951703/anthropic-shutdown-export-controls" target="_blank" rel="noopener">Anthropic got hit by export rules nobody understands</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-Verge">The Verge</span>
+    </div>
+    
+    <div class="summary">Anthropic has spent much of this week fighting to get its newest AI models back online after the Trump administration abruptly ordered the company to cut access for all foreign nationals, including us</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.theverge.com/ai-artificial-intelligence/951653/pew-research-ai-chatbot-usage-advancing-too-quickly" target="_blank" rel="noopener">Two-thirds of Americans think AI is advancing too quickly</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-Verge">The Verge</span>
+    </div>
+    
+    <div class="summary">According to the latest Pew Research poll, 49 percent of Americans report using chatbots at least occasionally, but 63 percent think the tech is advancing too quickly. Overall, use of AI chatbots has </div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.theverge.com/column/951516/trump-anthropic-feud-mythos-fable-white-house" target="_blank" rel="noopener">Vibe-decoding the White House-Anthropic fight over Fable</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-Verge">The Verge</span>
+    </div>
+    
+    <div class="summary">Hello and welcome to Regulator, an email for Verge subscribers about technology, politics, and what happens when science crashes headlong into self-interest. Not a subscriber? Sign up here today! Got </div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="oai:arXiv.org:2606.19464v1" target="_blank" rel="noopener">Deontic Policies for Runtime Governance of Agentic AI Systems</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-ArXiv">ArXiv</span>
+    </div>
+    
+    <div class="summary">arXiv:2606.19464v1 Announce Type: new 
+Abstract: Autonomous agentic AI systems driven by Large Language Models (LLMs) introduce a new class of security, privacy, and compliance challenges: an agent th</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="oai:arXiv.org:2606.19469v1" target="_blank" rel="noopener">Measuring Curriculum Alignment across Topical Coverage, Competency, and Cognitive Depth: A Longitudinal Framework Applied to CS2013 and CS2023</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-ArXiv">ArXiv</span>
+    </div>
+    
+    <div class="summary">arXiv:2606.19469v1 Announce Type: new 
+Abstract: Undergraduate computer science is governed by international curricular guidelines revised about once a decade, yet programs lack a reliable, reproducib</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="oai:arXiv.org:2606.19475v1" target="_blank" rel="noopener">Diffusion Language Models: An Experimental Analysis</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-ArXiv">ArXiv</span>
+    </div>
+    
+    <div class="summary">arXiv:2606.19475v1 Announce Type: new 
+Abstract: Large Language Models (LLMs) have revolutionized language modeling through autoregressive generation, enabling strong performance across a wide range o</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="oai:arXiv.org:2606.19494v1" target="_blank" rel="noopener">Hidden Anchors in Multi-Agent LLM Deliberation</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-ArXiv">ArXiv</span>
+    </div>
+    
+    <div class="summary">arXiv:2606.19494v1 Announce Type: new 
+Abstract: Multi-agent LLM deliberation, where agents exchange and revise answers over several rounds, is increasingly used to improve reasoning and accuracy, yet</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="oai:arXiv.org:2606.19501v1" target="_blank" rel="noopener">DeXposure-Claw: An Agentic System for DeFi Risk Supervision</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-ArXiv">ArXiv</span>
+    </div>
+    
+    <div class="summary">arXiv:2606.19501v1 Announce Type: new 
+Abstract: Decentralized finance exposes supervisors to fast-moving, networked credit risks. General-purpose LLM agents fit this setting poorly: they over-read we</div>
+    
+  </div>
+  
+
+  
+</div>
+
+<div class="panel " id="panel-tool">
+  <div class="stats">
+    <span>共 <strong>10</strong> 条</span>
+    <span>来源：Product Hunt</span>
+  </div>
+
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.producthunt.com/products/jetbrains" target="_blank" rel="noopener">Mellum by JetBrains</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-PH">Product Hunt</span>
+    </div>
+    
+    <div class="summary">Fast LLMs for low-latency and high-performance workflows
+          
+          
+            Discussion
+            |
+            Link</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.producthunt.com/products/workclaw" target="_blank" rel="noopener">WorkClaw</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-PH">Product Hunt</span>
+    </div>
+    
+    <div class="summary">Collaborative, proactive AI coworkers who work in Slack
+          
+          
+            Discussion
+            |
+            Link</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.producthunt.com/products/gitsync-for-macos" target="_blank" rel="noopener">GitSync for macOS</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-PH">Product Hunt</span>
+    </div>
+    
+    <div class="summary">Visual GitHub management directly from a graphical interface
+          
+          
+            Discussion
+            |
+            Link</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.producthunt.com/products/slack" target="_blank" rel="noopener">Slackbot’s MCP Client</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-PH">Product Hunt</span>
+    </div>
+    
+    <div class="summary">Work across 20+ apps in Slack with multiplayer collaboration
+          
+          
+            Discussion
+            |
+            Link</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.producthunt.com/products/releasedock" target="_blank" rel="noopener">ReleaseDock</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-PH">Product Hunt</span>
+    </div>
+    
+    <div class="summary">AI support agent, help center & changelogs in a single inbox
+          
+          
+            Discussion
+            |
+            Link</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.producthunt.com/products/amazon-wholesale-with-stemar-greene" target="_blank" rel="noopener">Amazon Wholesale with Stemar Greene</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-PH">Product Hunt</span>
+    </div>
+    
+    <div class="summary">Amazon Wholesale Success Starts with the Right Strategy
+          
+          
+            Discussion
+            |
+            Link</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.producthunt.com/products/are-you-in-the-weights" target="_blank" rel="noopener">Are you in the Weights?</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-PH">Product Hunt</span>
+    </div>
+    
+    <div class="summary">Find out if you live forever in the brain of the LLMs
+          
+          
+            Discussion
+            |
+            Link</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.producthunt.com/products/uisqueezy-design-systems-in-sync" target="_blank" rel="noopener">UISqueezy, Design systems, in sync</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-PH">Product Hunt</span>
+    </div>
+    
+    <div class="summary">Design tokens and Figma variables, always in sync.
+          
+          
+            Discussion
+            |
+            Link</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.producthunt.com/products/basedash" target="_blank" rel="noopener">Basedash Access Controls</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-PH">Product Hunt</span>
+    </div>
+    
+    <div class="summary">Control exactly who can access your company data
+          
+          
+            Discussion
+            |
+            Link</div>
+    
+  </div>
+  
+  <div class="card">
+    <div class="title">
+      <a href="https://www.producthunt.com/products/azure-cosmos-db" target="_blank" rel="noopener">Free AI Image Upscaler</a>
+    </div>
+    <div class="meta">
+      <span>2026-06-20</span>
+      <span class="source-tag source-PH">Product Hunt</span>
+    </div>
+    
+    <div class="summary">Locally Increase Resolution of Images
+          
+          
+            Discussion
+            |
+            Link</div>
+    
+  </div>
+  
+
+  
+</div>
+
+
+<footer>
+  由 AI 自动聚合 · 每日更新 · <a href="https://github.com/shinypideng/ai-daily" target="_blank">GitHub</a>
+</footer>
+
+</div>
+
+<script>
+function switchTab(cat) {
+  document.querySelectorAll('.tab').forEach((t,i) => {
+    var target = i === 0 ? 'news' : 'tool';
+    t.classList.toggle('active', target === cat);
+  });
+  document.querySelectorAll('.panel').forEach(p => {
+    p.classList.toggle('active', p.id === 'panel-' + cat);
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+name: AI 每日速递 — 自动更新
+
+on:
+  schedule:
+    # 每天 UTC 0:00 = 北京时间 8:00
+    - cron: "0 0 * * *"
+  workflow_dispatch:  # 允许手动触发
+
+# 赋予写入权限，用于推送到 gh-pages
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 安装依赖
+        run: pip install -r requirements.txt
+
+      - name: 抓取 + 生成网页
+        run: python generate.py
+
+      - name: 部署到 GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          publish_branch: gh-pages
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+          commit_message: "auto: 每日 AI 资讯更新 ${{ github.event.repository.updated_at }}"
