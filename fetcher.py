@@ -221,7 +221,7 @@ def extract_youtube(entry: dict) -> Optional[dict]:
     # YouTube RSS 的 description 在 media_description 或 summary 中
     desc = entry.get("media_description", "") or entry.get("summary", "")
     return {
-        "title": f"📺 {title}",
+        "title": title,
         "url": url,
         "summary": _clean_html(desc)[:200],
         "date": _parse_date(entry.get("published") or entry.get("updated")),
